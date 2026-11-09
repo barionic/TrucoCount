@@ -5,19 +5,28 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import kotlin.toString
 
 class MainActivity : AppCompatActivity() {
 
+    var vitoriasJogador1 = 0
+    var vitoriasJogador2 = 0
+
+    var placarJogador1 = 0
+    var placarJogador2 = 0
+
+
     private lateinit var tvNomeJogador1: TextView
     private lateinit var tvPlacarJogador1: TextView
+    private lateinit var tvPlacarVitoriasJogador1: TextView
 
     private lateinit var tvNomeJogador2: TextView
     private lateinit var tvPlacarJogador2: TextView
+    private lateinit var tvPlacarVitoriasJogador2: TextView
 
     private lateinit var btZerarHistorico: Button
 
@@ -45,17 +54,18 @@ class MainActivity : AppCompatActivity() {
 
         tvNomeJogador1 = findViewById(R.id.tvNomeJogador1)
         tvNomeJogador2 = findViewById(R.id.tvNomeJogador2)
+        tvPlacarJogador1 = findViewById(R.id.tvPlacarJogador1)
+        tvPlacarJogador2 = findViewById(R.id.tvPlacarJogador2)
+        tvPlacarVitoriasJogador1 = findViewById(R.id.tvPlacarVitoriasJogador1)
+        tvPlacarVitoriasJogador2 = findViewById(R.id.tvPlacarVitoriasJogador2)
 
         val novoNome1 = intent.getStringExtra("nomeJogador1")
         val novoNome2 = intent.getStringExtra("nomeJogador2")
 
-        if (novoNome1 !== null && novoNome2 !== null){
+        if (novoNome1 !== null && novoNome2 !== null) {
             tvNomeJogador1.text = "$novoNome1 :"
             tvNomeJogador2.text = "$novoNome2 :"
         }
-
-        tvPlacarJogador1 = findViewById(R.id.tvPlacarJogador1)
-        tvPlacarJogador2 = findViewById(R.id.tvPlacarJogador2)
 
         bt1Jog1 = findViewById(R.id.bt1Jog1)
         bt3Jog1 = findViewById(R.id.bt3Jog1)
@@ -63,85 +73,123 @@ class MainActivity : AppCompatActivity() {
         bt9Jog1 = findViewById(R.id.bt9Jog1)
         bt12Jog1 = findViewById(R.id.bt12Jog1)
 
-        btZerarHistorico = findViewById(R.id.btZerarHistorico)
-
         bt1Jog2 = findViewById(R.id.bt1Jog2)
         bt3Jog2 = findViewById(R.id.bt3Jog2)
         bt6Jog2 = findViewById(R.id.bt6Jog2)
         bt9Jog2 = findViewById(R.id.bt9Jog2)
         bt12Jog2 = findViewById(R.id.bt12Jog2)
 
-        var vitoriasJogador1 = 0
-        var vitoriasJogador2 = 0
+        btZerarHistorico = findViewById(R.id.btZerarHistorico)
 
-        var placarJogador1 = 0
-        var placarJogador2 = 0
 
-        bt1Jog1.setOnClickListener{
+        bt1Jog1.setOnClickListener {
             placarJogador1++
             tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt1Jog2.setOnClickListener{
+        bt1Jog2.setOnClickListener {
             placarJogador2++
             tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt3Jog1.setOnClickListener{
-            placarJogador1+=3
+        bt3Jog1.setOnClickListener {
+            placarJogador1 += 3
             tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt3Jog2.setOnClickListener{
-            placarJogador2+=3
+        bt3Jog2.setOnClickListener {
+            placarJogador2 += 3
             tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt6Jog1.setOnClickListener{
-            placarJogador1+=6
+        bt6Jog1.setOnClickListener {
+            placarJogador1 += 6
             tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt6Jog2.setOnClickListener{
-            placarJogador2+=6
+        bt6Jog2.setOnClickListener {
+            placarJogador2 += 6
             tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt9Jog1.setOnClickListener{
-            placarJogador1+=9
+        bt9Jog1.setOnClickListener {
+            placarJogador1 += 9
             tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt9Jog2.setOnClickListener{
-            placarJogador2+=9
+        bt9Jog2.setOnClickListener {
+            placarJogador2 += 9
             tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt12Jog1.setOnClickListener{
-            placarJogador1+=12
+        bt12Jog1.setOnClickListener {
+            placarJogador1 += 12
             tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
-        bt12Jog2.setOnClickListener{
-            placarJogador2+=12
+        bt12Jog2.setOnClickListener {
+            placarJogador2 += 12
             tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         btZerarHistorico.setOnClickListener {
-             vitoriasJogador1 = 0
-             vitoriasJogador2 = 0
+            vitoriasJogador1 = 0
+            tvPlacarVitoriasJogador1.text = vitoriasJogador1.toString()
+            vitoriasJogador2 = 0
+            tvPlacarVitoriasJogador2.text = vitoriasJogador2.toString()
 
-             placarJogador1 = 0
-             tvPlacarJogador1.text = placarJogador1.toString()
-             placarJogador2 = 0
-             tvPlacarJogador2.text = placarJogador2.toString()
+            zerarPlacar()
         }
 
+    }
+
+
+    fun verificarVencedor(nomeJogador1: String, nomeJogador2: String){
+        if (placarJogador1 >= 12 || placarJogador2 >= 12) {
+            if (placarJogador1 >= 12) {
+                Toast.makeText(this, "${nomeJogador1} Venceu!", Toast.LENGTH_LONG).show()
+                vitoriasJogador1++
+                tvPlacarVitoriasJogador1.text = vitoriasJogador1.toString()
+            }
+            if (placarJogador2 >= 12) {
+                Toast.makeText(this, "${nomeJogador2} Venceu!", Toast.LENGTH_LONG).show()
+                vitoriasJogador2++
+                tvPlacarVitoriasJogador2.text = vitoriasJogador2.toString()
+            }
+
+            zerarPlacar()
+        }
+    }
+
+    fun zerarPlacar(){
+        placarJogador1 = 0
+        tvPlacarJogador1.text = placarJogador1.toString()
+        placarJogador2 = 0
+        tvPlacarJogador2.text = placarJogador2.toString()
     }
 
     fun btAlterarNomeOnClick(view: View) {
         val intent = Intent(this, ChangeNameActivity::class.java)
         startActivity(intent)
+        //TODO: garantir placar intacto ao mudar de nome
     }
+
+    fun btHistoricoJogadas(view: View) {
+        val intent = Intent(this, TrackingRoundsActivity::class.java)
+        startActivity(intent)
+        //TODO: levar jogadas feitas aqui para o histórico
+        //TODO: garantir placar intacto ao visualizar histórico
+    }
+
 
 }
