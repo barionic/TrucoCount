@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlin.toString
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var tvNomeJogador2: TextView
     private lateinit var tvPlacarJogador2: TextView
+
+    private lateinit var btZerarHistorico: Button
 
     private lateinit var bt1Jog1: Button
     private lateinit var bt3Jog1: Button
@@ -60,11 +63,16 @@ class MainActivity : AppCompatActivity() {
         bt9Jog1 = findViewById(R.id.bt9Jog1)
         bt12Jog1 = findViewById(R.id.bt12Jog1)
 
+        btZerarHistorico = findViewById(R.id.btZerarHistorico)
+
         bt1Jog2 = findViewById(R.id.bt1Jog2)
         bt3Jog2 = findViewById(R.id.bt3Jog2)
         bt6Jog2 = findViewById(R.id.bt6Jog2)
         bt9Jog2 = findViewById(R.id.bt9Jog2)
         bt12Jog2 = findViewById(R.id.bt12Jog2)
+
+        var vitoriasJogador1 = 0
+        var vitoriasJogador2 = 0
 
         var placarJogador1 = 0
         var placarJogador2 = 0
@@ -79,10 +87,61 @@ class MainActivity : AppCompatActivity() {
             tvPlacarJogador2.text = placarJogador2.toString()
         }
 
+        bt3Jog1.setOnClickListener{
+            placarJogador1+=3
+            tvPlacarJogador1.text = placarJogador1.toString()
+        }
+
+        bt3Jog2.setOnClickListener{
+            placarJogador2+=3
+            tvPlacarJogador2.text = placarJogador2.toString()
+        }
+
+        bt6Jog1.setOnClickListener{
+            placarJogador1+=6
+            tvPlacarJogador1.text = placarJogador1.toString()
+        }
+
+        bt6Jog2.setOnClickListener{
+            placarJogador2+=6
+            tvPlacarJogador2.text = placarJogador2.toString()
+        }
+
+        bt9Jog1.setOnClickListener{
+            placarJogador1+=9
+            tvPlacarJogador1.text = placarJogador1.toString()
+        }
+
+        bt9Jog2.setOnClickListener{
+            placarJogador2+=9
+            tvPlacarJogador2.text = placarJogador2.toString()
+        }
+
+        bt12Jog1.setOnClickListener{
+            placarJogador1+=12
+            tvPlacarJogador1.text = placarJogador1.toString()
+        }
+
+        bt12Jog2.setOnClickListener{
+            placarJogador2+=12
+            tvPlacarJogador2.text = placarJogador2.toString()
+        }
+
+        btZerarHistorico.setOnClickListener {
+             vitoriasJogador1 = 0
+             vitoriasJogador2 = 0
+
+             placarJogador1 = 0
+             tvPlacarJogador1.text = placarJogador1.toString()
+             placarJogador2 = 0
+             tvPlacarJogador2.text = placarJogador2.toString()
+        }
+
     }
 
     fun btAlterarNomeOnClick(view: View) {
         val intent = Intent(this, ChangeNameActivity::class.java)
         startActivity(intent)
     }
+
 }
