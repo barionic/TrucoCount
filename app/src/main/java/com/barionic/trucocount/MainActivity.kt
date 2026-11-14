@@ -3,173 +3,127 @@ package com.barionic.trucocount
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.barionic.trucocount.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityMainBinding
     var vitoriasJogador1 = 0
     var vitoriasJogador2 = 0
 
     var placarJogador1 = 0
     var placarJogador2 = 0
 
-
-    private lateinit var tvNomeJogador1: TextView
-    private lateinit var tvPlacarJogador1: TextView
-    private lateinit var tvPlacarVitoriasJogador1: TextView
-
-    private lateinit var tvNomeJogador2: TextView
-    private lateinit var tvPlacarJogador2: TextView
-    private lateinit var tvPlacarVitoriasJogador2: TextView
-
-    private lateinit var btZerarHistorico: Button
-
-    private lateinit var bt1Jog1: Button
-    private lateinit var bt3Jog1: Button
-    private lateinit var bt6Jog1: Button
-    private lateinit var bt9Jog1: Button
-    private lateinit var bt12Jog1: Button
-
-    private lateinit var bt1Jog2: Button
-    private lateinit var bt3Jog2: Button
-    private lateinit var bt6Jog2: Button
-    private lateinit var bt9Jog2: Button
-    private lateinit var bt12Jog2: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        tvNomeJogador1 = findViewById(R.id.tvNomeJogador1)
-        tvNomeJogador2 = findViewById(R.id.tvNomeJogador2)
-        tvPlacarJogador1 = findViewById(R.id.tvPlacarJogador1)
-        tvPlacarJogador2 = findViewById(R.id.tvPlacarJogador2)
-        tvPlacarVitoriasJogador1 = findViewById(R.id.tvPlacarVitoriasJogador1)
-        tvPlacarVitoriasJogador2 = findViewById(R.id.tvPlacarVitoriasJogador2)
-
-        bt1Jog1 = findViewById(R.id.bt1Jog1)
-        bt3Jog1 = findViewById(R.id.bt3Jog1)
-        bt6Jog1 = findViewById(R.id.bt6Jog1)
-        bt9Jog1 = findViewById(R.id.bt9Jog1)
-        bt12Jog1 = findViewById(R.id.bt12Jog1)
-
-        bt1Jog2 = findViewById(R.id.bt1Jog2)
-        bt3Jog2 = findViewById(R.id.bt3Jog2)
-        bt6Jog2 = findViewById(R.id.bt6Jog2)
-        bt9Jog2 = findViewById(R.id.bt9Jog2)
-        bt12Jog2 = findViewById(R.id.bt12Jog2)
-
-        btZerarHistorico = findViewById(R.id.btZerarHistorico)
-
-
-        bt1Jog1.setOnClickListener {
+        binding.bt1Jog1.setOnClickListener {
             placarJogador1++
-            historico.add("${tvNomeJogador1.text} marcou +1 pontos")
-            tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador1.text} marcou +1 pontos")
+            binding.tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt1Jog2.setOnClickListener {
+        binding.bt1Jog2.setOnClickListener {
             placarJogador2++
-            historico.add("${tvNomeJogador2.text} marcou +1 pontos")
-            tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador2.text} marcou +1 pontos")
+            binding.tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt3Jog1.setOnClickListener {
+        binding.bt3Jog1.setOnClickListener {
             placarJogador1 += 3
-            historico.add("${tvNomeJogador1.text} marcou +3 pontos")
-            tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador1.text} marcou +3 pontos")
+            binding.tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt3Jog2.setOnClickListener {
+        binding.bt3Jog2.setOnClickListener {
             placarJogador2 += 3
-            historico.add("${tvNomeJogador2.text} marcou +3 pontos")
-            tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador2.text} marcou +3 pontos")
+            binding.tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt6Jog1.setOnClickListener {
+        binding.bt6Jog1.setOnClickListener {
             placarJogador1 += 6
-            historico.add("${tvNomeJogador1.text} marcou +6 pontos")
-            tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador1.text} marcou +6 pontos")
+            binding.tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt6Jog2.setOnClickListener {
+        binding.bt6Jog2.setOnClickListener {
             placarJogador2 += 6
-            historico.add("${tvNomeJogador2.text} marcou +6 pontos")
-            tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador2.text} marcou +6 pontos")
+            binding.tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt9Jog1.setOnClickListener {
+        binding.bt9Jog1.setOnClickListener {
             placarJogador1 += 9
-            historico.add("${tvNomeJogador1.text} marcou +9 pontos")
-            tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador1.text} marcou +9 pontos")
+            binding.tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt9Jog2.setOnClickListener {
+        binding.bt9Jog2.setOnClickListener {
             placarJogador2 += 9
-            historico.add("${tvNomeJogador2.text} marcou +9 pontos")
-            tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador2.text} marcou +9 pontos")
+            binding.tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt12Jog1.setOnClickListener {
+        binding.bt12Jog1.setOnClickListener {
             placarJogador1 += 12
-            historico.add("${tvNomeJogador1.text} marcou +12 pontos")
-            tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador1.text} marcou +12 pontos")
+            binding.tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        bt12Jog2.setOnClickListener {
+        binding.bt12Jog2.setOnClickListener {
             placarJogador2 += 12
-            historico.add("${tvNomeJogador2.text} marcou +12 pontos")
-            tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
+            historico.add("${binding.tvNomeJogador2.text} marcou +12 pontos")
+            binding.tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
         }
 
-        btZerarHistorico.setOnClickListener {
+        binding.btZerarHistorico.setOnClickListener {
             vitoriasJogador1 = 0
-            tvPlacarVitoriasJogador1.text = vitoriasJogador1.toString()
+            binding.tvPlacarVitoriasJogador1.text = vitoriasJogador1.toString()
             vitoriasJogador2 = 0
-            tvPlacarVitoriasJogador2.text = vitoriasJogador2.toString()
+            binding.tvPlacarVitoriasJogador2.text = vitoriasJogador2.toString()
             historico.clear()
             zerarPlacar()
         }
 
     }
 
-
     fun verificarVencedor(nomeJogador1: String, nomeJogador2: String){
         if (placarJogador1 >= 12 || placarJogador2 >= 12) {
             if (placarJogador1 >= 12) {
                 Toast.makeText(this, "${nomeJogador1} Venceu!", Toast.LENGTH_LONG).show()
                 vitoriasJogador1++
-                historico.add("${tvNomeJogador1.text} ganhou a partida!")
-                tvPlacarVitoriasJogador1.text = vitoriasJogador1.toString()
+                historico.add("${binding.tvNomeJogador1.text} ganhou a partida!")
+                binding.tvPlacarVitoriasJogador1.text = vitoriasJogador1.toString()
             }
             if (placarJogador2 >= 12) {
                 Toast.makeText(this, "${nomeJogador2} Venceu!", Toast.LENGTH_LONG).show()
                 vitoriasJogador2++
-                historico.add("${tvNomeJogador2.text} ganhou a partida!")
-                tvPlacarVitoriasJogador2.text = vitoriasJogador2.toString()
+                historico.add("${binding.tvNomeJogador2.text} ganhou a partida!")
+                binding.tvPlacarVitoriasJogador2.text = vitoriasJogador2.toString()
             }
 
             zerarPlacar()
@@ -178,9 +132,9 @@ class MainActivity : AppCompatActivity() {
 
     fun zerarPlacar(){
         placarJogador1 = 0
-        tvPlacarJogador1.text = placarJogador1.toString()
+        binding.tvPlacarJogador1.text = placarJogador1.toString()
         placarJogador2 = 0
-        tvPlacarJogador2.text = placarJogador2.toString()
+        binding.tvPlacarJogador2.text = placarJogador2.toString()
     }
 
     fun btAlterarNomeOnClick(view: View) {
@@ -193,8 +147,8 @@ class MainActivity : AppCompatActivity() {
             if(resultado.resultCode == RESULT_OK){
                 val novoNome1 = resultado.data?.getStringExtra("nomeJogador1")
                 val novoNome2 = resultado.data?.getStringExtra("nomeJogador2")
-                tvNomeJogador1.setText("$novoNome1 : ")
-                tvNomeJogador2.setText("$novoNome2 : ")
+                binding.tvNomeJogador1.setText("$novoNome1 : ")
+                binding.tvNomeJogador2.setText("$novoNome2 : ")
             }
         }
 
@@ -206,6 +160,5 @@ class MainActivity : AppCompatActivity() {
     companion object{
         val historico = mutableListOf<String>()
     }
-
 
 }
