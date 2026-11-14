@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
             tvPlacarVitoriasJogador1.text = vitoriasJogador1.toString()
             vitoriasJogador2 = 0
             tvPlacarVitoriasJogador2.text = vitoriasJogador2.toString()
-
+            historico.clear()
             zerarPlacar()
         }
 
@@ -201,8 +201,6 @@ class MainActivity : AppCompatActivity() {
     fun btHistoricoJogadas(view: View) {
         val intent = Intent(this, TrackingRoundsActivity::class.java)
         startActivity(intent)
-        //TODO: levar jogadas feitas aqui para o histórico
-        //TODO: garantir placar intacto ao visualizar histórico
     }
 
     companion object{
