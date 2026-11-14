@@ -77,60 +77,70 @@ class MainActivity : AppCompatActivity() {
 
         bt1Jog1.setOnClickListener {
             placarJogador1++
+            historico.add("${tvNomeJogador1.text} marcou +1 pontos")
             tvPlacarJogador1.text = placarJogador1.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt1Jog2.setOnClickListener {
             placarJogador2++
+            historico.add("${tvNomeJogador2.text} marcou +1 pontos")
             tvPlacarJogador2.text = placarJogador2.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt3Jog1.setOnClickListener {
             placarJogador1 += 3
+            historico.add("${tvNomeJogador1.text} marcou +3 pontos")
             tvPlacarJogador1.text = placarJogador1.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt3Jog2.setOnClickListener {
             placarJogador2 += 3
+            historico.add("${tvNomeJogador2.text} marcou +3 pontos")
             tvPlacarJogador2.text = placarJogador2.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt6Jog1.setOnClickListener {
             placarJogador1 += 6
+            historico.add("${tvNomeJogador1.text} marcou +6 pontos")
             tvPlacarJogador1.text = placarJogador1.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt6Jog2.setOnClickListener {
             placarJogador2 += 6
+            historico.add("${tvNomeJogador2.text} marcou +6 pontos")
             tvPlacarJogador2.text = placarJogador2.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt9Jog1.setOnClickListener {
             placarJogador1 += 9
+            historico.add("${tvNomeJogador1.text} marcou +9 pontos")
             tvPlacarJogador1.text = placarJogador1.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt9Jog2.setOnClickListener {
             placarJogador2 += 9
+            historico.add("${tvNomeJogador2.text} marcou +9 pontos")
             tvPlacarJogador2.text = placarJogador2.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt12Jog1.setOnClickListener {
             placarJogador1 += 12
+            historico.add("${tvNomeJogador1.text} marcou +12 pontos")
             tvPlacarJogador1.text = placarJogador1.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
 
         bt12Jog2.setOnClickListener {
             placarJogador2 += 12
+            historico.add("${tvNomeJogador2.text} marcou +12 pontos")
             tvPlacarJogador2.text = placarJogador2.toString()
             verificarVencedor(tvNomeJogador1.text.toString(), tvNomeJogador2.text.toString())
         }
@@ -152,11 +162,13 @@ class MainActivity : AppCompatActivity() {
             if (placarJogador1 >= 12) {
                 Toast.makeText(this, "${nomeJogador1} Venceu!", Toast.LENGTH_LONG).show()
                 vitoriasJogador1++
+                historico.add("${tvNomeJogador1.text} ganhou a partida!")
                 tvPlacarVitoriasJogador1.text = vitoriasJogador1.toString()
             }
             if (placarJogador2 >= 12) {
                 Toast.makeText(this, "${nomeJogador2} Venceu!", Toast.LENGTH_LONG).show()
                 vitoriasJogador2++
+                historico.add("${tvNomeJogador2.text} ganhou a partida!")
                 tvPlacarVitoriasJogador2.text = vitoriasJogador2.toString()
             }
 
@@ -191,6 +203,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         //TODO: levar jogadas feitas aqui para o histórico
         //TODO: garantir placar intacto ao visualizar histórico
+    }
+
+    companion object{
+        val historico = mutableListOf<String>()
     }
 
 
