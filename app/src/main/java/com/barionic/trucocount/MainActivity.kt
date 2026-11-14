@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -58,14 +59,6 @@ class MainActivity : AppCompatActivity() {
         tvPlacarJogador2 = findViewById(R.id.tvPlacarJogador2)
         tvPlacarVitoriasJogador1 = findViewById(R.id.tvPlacarVitoriasJogador1)
         tvPlacarVitoriasJogador2 = findViewById(R.id.tvPlacarVitoriasJogador2)
-
-        val novoNome1 = intent.getStringExtra("nomeJogador1")
-        val novoNome2 = intent.getStringExtra("nomeJogador2")
-
-        if (novoNome1 !== null && novoNome2 !== null) {
-            tvNomeJogador1.text = "$novoNome1 :"
-            tvNomeJogador2.text = "$novoNome2 :"
-        }
 
         bt1Jog1 = findViewById(R.id.bt1Jog1)
         bt3Jog1 = findViewById(R.id.bt3Jog1)
@@ -180,9 +173,18 @@ class MainActivity : AppCompatActivity() {
 
     fun btAlterarNomeOnClick(view: View) {
         val intent = Intent(this, ChangeNameActivity::class.java)
-        startActivity(intent)
-        //TODO: garantir placar intacto ao mudar de nome
+        getResult.launch(intent)
     }
+
+    private val getResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ resultado ->
+            if(resultado.resultCode == RESULT_OK){
+                val novoNome1 = resultado.data?.getStringExtra("nomeJogador1")
+                val novoNome2 = resultado.data?.getStringExtra("nomeJogador2")
+                tvNomeJogador1.setText("$novoNome1 : ")
+                tvNomeJogador2.setText("$novoNome2 : ")
+            }
+        }
 
     fun btHistoricoJogadas(view: View) {
         val intent = Intent(this, TrackingRoundsActivity::class.java)

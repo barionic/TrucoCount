@@ -32,6 +32,7 @@ class ChangeNameActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("nomeJogador1", etJogador1.text.toString())
         intent.putExtra("nomeJogador2", etJogador2.text.toString())
-        startActivity(intent)
+        setResult(RESULT_OK, intent)
+        finish()
     }
 }
