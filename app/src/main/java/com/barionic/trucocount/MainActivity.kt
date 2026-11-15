@@ -3,6 +3,7 @@ package com.barionic.trucocount
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,73 +32,43 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bt1Jog1.setOnClickListener {
-            placarJogador1++
-            historico.add("${binding.tvNomeJogador1.text} marcou +1 pontos")
-            binding.tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(1, binding.tvNomeJogador1)
         }
 
         binding.bt1Jog2.setOnClickListener {
-            placarJogador2++
-            historico.add("${binding.tvNomeJogador2.text} marcou +1 pontos")
-            binding.tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(1, binding.tvNomeJogador2)
         }
 
         binding.bt3Jog1.setOnClickListener {
-            placarJogador1 += 3
-            historico.add("${binding.tvNomeJogador1.text} marcou +3 pontos")
-            binding.tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(3, binding.tvNomeJogador1)
         }
 
         binding.bt3Jog2.setOnClickListener {
-            placarJogador2 += 3
-            historico.add("${binding.tvNomeJogador2.text} marcou +3 pontos")
-            binding.tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(3, binding.tvNomeJogador2)
         }
 
         binding.bt6Jog1.setOnClickListener {
-            placarJogador1 += 6
-            historico.add("${binding.tvNomeJogador1.text} marcou +6 pontos")
-            binding.tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(6, binding.tvNomeJogador1)
         }
 
         binding.bt6Jog2.setOnClickListener {
-            placarJogador2 += 6
-            historico.add("${binding.tvNomeJogador2.text} marcou +6 pontos")
-            binding.tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(6, binding.tvNomeJogador2)
         }
 
         binding.bt9Jog1.setOnClickListener {
-            placarJogador1 += 9
-            historico.add("${binding.tvNomeJogador1.text} marcou +9 pontos")
-            binding.tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(9, binding.tvNomeJogador1)
         }
 
         binding.bt9Jog2.setOnClickListener {
-            placarJogador2 += 9
-            historico.add("${binding.tvNomeJogador2.text} marcou +9 pontos")
-            binding.tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(9, binding.tvNomeJogador2)
         }
 
         binding.bt12Jog1.setOnClickListener {
-            placarJogador1 += 12
-            historico.add("${binding.tvNomeJogador1.text} marcou +12 pontos")
-            binding.tvPlacarJogador1.text = placarJogador1.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(12, binding.tvNomeJogador1)
         }
 
         binding.bt12Jog2.setOnClickListener {
-            placarJogador2 += 12
-            historico.add("${binding.tvNomeJogador2.text} marcou +12 pontos")
-            binding.tvPlacarJogador2.text = placarJogador2.toString()
-            verificarVencedor(binding.tvNomeJogador1.text.toString(), binding.tvNomeJogador2.text.toString())
+            fazerPonto(12, binding.tvNomeJogador2)
         }
 
         binding.btZerarHistorico.setOnClickListener {
@@ -111,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun verificarVencedor(nomeJogador1: String, nomeJogador2: String){
+    fun verificarVencedor(nomeJogador1: String, nomeJogador2: String) {
         if (placarJogador1 >= 12 || placarJogador2 >= 12) {
             if (placarJogador1 >= 12) {
                 Toast.makeText(this, "${nomeJogador1} Venceu!", Toast.LENGTH_LONG).show()
@@ -130,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun zerarPlacar(){
+    fun zerarPlacar() {
         placarJogador1 = 0
         binding.tvPlacarJogador1.text = placarJogador1.toString()
         placarJogador2 = 0
@@ -143,8 +114,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val getResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ resultado ->
-            if(resultado.resultCode == RESULT_OK){
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { resultado ->
+            if (resultado.resultCode == RESULT_OK) {
                 val novoNome1 = resultado.data?.getStringExtra("nomeJogador1")
                 val novoNome2 = resultado.data?.getStringExtra("nomeJogador2")
                 binding.tvNomeJogador1.setText("$novoNome1 : ")
@@ -157,7 +128,31 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    companion object{
+    fun fazerPonto(ponto: Int, nomeJogador: TextView) {
+        if (nomeJogador == binding.tvNomeJogador1) {
+            placarJogador1 += ponto
+            historico.add("${nomeJogador.text} marcou +${ponto} pontos")
+            binding.tvPlacarJogador1.text = placarJogador1.toString()
+            verificarVencedor(
+                binding.tvNomeJogador1.text.toString(),
+                binding.tvNomeJogador2.text.toString()
+            )
+        }
+        if (nomeJogador == binding.tvNomeJogador2) {
+            placarJogador2 += ponto
+            historico.add("${nomeJogador.text} marcou +${ponto} pontos")
+            binding.tvPlacarJogador2.text = placarJogador2.toString()
+            verificarVencedor(
+                binding.tvNomeJogador1.text.toString(),
+                binding.tvNomeJogador2.text.toString()
+            )
+        }
+
+        //TODO: melhorar design do app começando pelo visuais dos buttons e ListView, depois font e backgrounds
+
+    }
+
+    companion object {
         val historico = mutableListOf<String>()
     }
 
